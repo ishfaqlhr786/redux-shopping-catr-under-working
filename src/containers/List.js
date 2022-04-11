@@ -7,8 +7,17 @@ import {Pagination}  from './Pagination'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import Badge from '@material-ui/core/Badge'
 import {CartItem} from './CartItem'
+import {MyCart}  from './MyCart'
 export const List = () => {
     const dispatch= useDispatch()
+    const [cartItem1,setCartItem]= useState({ id:null,
+      category:"",
+      description:"",
+      image:"",
+      price:"",
+      title:"",
+      amount:0
+    })
   const [posts,setPosts]=useState([]);
   const [cartOpen,setCartOpen]=useState(false);
   const [limit,setLimit]=useState(10)
@@ -20,11 +29,7 @@ export const List = () => {
     start:0,
     end:showPerPage
   })
-  const [cartItem,setCartItem]= useState([] );
-  const CalculateTotal1=(items) => 
   
-  
-  items.reduce((ack,item)=> ack + item.amount ,0);
   
   const getTotalItems=(items)=>
     { items.reduce((ack,item)=> ack +item.amount,0)}
@@ -100,16 +105,15 @@ const handleAdd=(e,id)=>{
         open ={cartOpen} onClose={()=>{
        setCartOpen(false)
      }}>
-      ur carthhhhjhfhfhf
-      <CartItem cartItems={cartItem} addToCart={handleAddToCart}
-       removeFromCart={handleRemoveFromCart}
-       />
+   
+    <MyCart/>
       
         </Drawer>
         <button onClick={()=>
        setCartOpen(true)
      }> 
-     <Badge badgeContent={CalculateTotal1(cartItem).toFixed(0)} color="error">
+        
+     <Badge  color="error">
        <AddShoppingCartIcon/>
      
      </Badge>
@@ -129,14 +133,17 @@ const handleAdd=(e,id)=>{
            <span>
                <img src={item.image} alt="ll" height="100px"  width="100px"/>
            </span>
- <button className="btn btn-md btn-success" onClick={()=>handleAddToCart()}>Add to Cart</button>
+ <button className="btn btn-md btn-success" >Add to Cart</button>
              </div>
            </div>
+       
          </div>
+       
+
          </>)
        })
      }
-      </div>
+            </div>
       <select style={{height:"50px"}}
                value={limit}
                 name="limit"
